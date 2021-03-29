@@ -18,12 +18,17 @@ const app = Vue.createApp({
         .then((json) => (this.selectedBlog = json.blogs[0]));
     },
     postComment() {
-      fetch("http://vue-test.gingerbd.com/public/api/post-comment", {
+      const currentDate = new Date();
+      const date = currentDate.toISOString().slice(0, 10);
+      const time = currentDate.toLocaleTimeString().substr(0, 8).trim();
+      const date_time = date + " " + time;
+
+      fetch("http://vue-test.gingerbd.com/api/post-comment", {
         method: "POST",
         body: JSON.stringify({
           blog_id: this.selectedBlog.id,
           comment: this.newComment.comment,
-          comment_datetime: new Date(),
+          comment_datetime: date_time,
           user: this.newComment.user,
         }),
         headers: {
@@ -33,6 +38,7 @@ const app = Vue.createApp({
         .then((response) => response.json())
         .then((json) => console.log(json))
         .then(() => $("#NewCommentModal").modal("hide"))
+        .then(() => this.selectBlog(this.selectedBlog.id))
         .catch((error) => console.log(error));
     },
     removeComment(id) {
