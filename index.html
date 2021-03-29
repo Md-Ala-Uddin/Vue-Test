@@ -28,7 +28,7 @@
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#about">Instructions</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#">BLOG</a>
                         <ul style="list-style:none" >
-                            <li v-for="blog in blogs" @click="showBlogDetails(blog.id)" class="text-left">
+                            <li v-for="blog in blogs" @click="selectBlog(blog.id)" class="text-left">
                                 <a href="#" style="color:white;text-decoration: none;">{{ blog.title }}</a>
                             </li>
                         </ul>
@@ -115,19 +115,21 @@
                 <div class="resume-section-content">                    
                     <div class="d-flex flex-column flex-md-row justify-content-between mb-5">
                         <div class="flex-grow-1">
-                            <h3 class="mb-0">Blog Title</h3>
-                            <div class="subheading mb-3">Blog Author</div>
-                            <p>Bring to the table win-win survival strategies to ensure proactive domination. At the end of the day, going forward, a new normal that has evolved from generation X is on the runway heading towards a streamlined cloud solution. User generated content in real-time will have multiple touchpoints for offshoring.</p>
+                            <h3 class="mb-0">{{ selectedBlog != null ? selectedBlog.title : 'Blog Title' }}</h3>
+                            <div class="subheading mb-3">{{ selectedBlog != null ? selectedBlog.created_by : 'Blog Author' }}</div>
+                            <p>{{ selectedBlog != null ? selectedBlog.all_blogs[0].blog_detail : 'Blog Content' }}</p>
                         </div>
-                        <div class="flex-shrink-0"><span class="text-primary">11 March 2013 : 10am</span></div>
+                        <div class="flex-shrink-0"><span class="text-primary">{{ selectedBlog != null ? selectedBlog.all_blogs[0].blog_datetime : 'Blog DateTime' }}</span></div>
                     </div>
 					<div class="d-flex flex-column flex-md-row justify-content-between mb-5">
                         <div class="flex-grow-1">
                             <h5 class="mb-0">Blog Comment<hr></h5>
-                            <div class="subheading mb-1" style="font-size:11pt;"><i class="fa fa-user"></i> Commenter 1 <div class="float-right"><i class="fa fa-clock"></i> 2021-03-23 10.05 pm</div></div>
-                            <p>Comment 1</p>
-							<div class="subheading mb-1" style="font-size:11pt;"><i class="fa fa-user"></i> Commenter 2 <div class="float-right"><i class="fa fa-clock"></i> 2021-03-23 10.05 pm</div></div>
-                            <p>Comment 2</p>							
+                            <div v-if="selectedBlog != null" v-for="comment in selectedBlog.all_comments" class="subheading mb-1" style="font-size:11pt;">
+                                <i class="fa fa-user"></i> 
+                                {{comment != null ? comment.user : "no comment"}} 
+                                <div class="float-right"><i class="fa fa-clock"></i> {{ comment.comment_datetime }}</div>
+                                <p>{{comment.comment}}</p> 
+                            </div>							
 							<div class="subheading mb-1"><button class="btn btn-sm btn-info">New Comment</button></div>
                         </div>                        
                     </div>
