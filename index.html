@@ -128,7 +128,10 @@
                                 <i class="fa fa-user"></i> 
                                 {{comment != null ? comment.user : "no comment"}} 
                                 <div class="float-right"><i class="fa fa-clock"></i> {{ comment.comment_datetime }}</div>
-                                <p>{{comment.comment}}</p> 
+                                <p>
+                                    {{comment.comment}}
+                                    <button @click="removeComment(comment.id)" class="btn btn-sm btn-danger float-right">Remove</button>
+                                </p> 
                             </div>							
 							<div class="subheading mb-1">
                                 <button class="btn btn-sm btn-info" data-toggle="modal" data-target="#NewCommentModal">New Comment</button>

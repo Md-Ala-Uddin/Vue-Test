@@ -33,7 +33,13 @@ const app = Vue.createApp({
         .then((response) => response.json())
         .then((json) => console.log(json))
         .then(() => $("#NewCommentModal").modal("hide"))
-        .catch(error => console.log(error));
+        .catch((error) => console.log(error));
+    },
+    removeComment(id) {
+      fetch("http://vue-test.gingerbd.com/api/remove-comment/" + id)
+        .then((response) => response.json())
+        .then((json) => console.log(json))
+        .then(() => this.selectBlog(this.selectedBlog.id));
     },
   },
   mounted() {
