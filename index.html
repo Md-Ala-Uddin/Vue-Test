@@ -144,16 +144,16 @@
                                             <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
-                                        <form id="newCommentForm">
+                                        <form id="newCommentForm" v-on:submit.prevent="postComment">
                                             <div class="modal-body">
                                                 
                                                     <div class="form-group">
                                                         <label for="name">Name:</label>
-                                                        <input type="text" class="form-control" placeholder="Enter Name" id="name">
+                                                        <input v-model="newComment.user" type="text" class="form-control" placeholder="Enter Name" id="name">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="comment">Comment:</label>
-                                                        <textarea class="form-control" rows="5" id="comment"></textarea>
+                                                        <textarea v-model="newComment.comment" class="form-control" rows="5" id="comment"></textarea>
                                                     </div> 
                                                 
                                             </div>
